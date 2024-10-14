@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto';
 
 function App() {
 
@@ -29,7 +31,6 @@ function App() {
 
     return numerator / denominator;
 
-    //setMonthlyPayment(payment.toFixed(2));
   };
 
   const calculateNonFixedMonthlyPayment = (P, r1, r2, n, changeAfterMonths) => {
@@ -60,10 +61,48 @@ function App() {
     if (isFixedRate) {
       const payment = calculateFixedMonthlyPayment(loanAmount, interestRate, loanDuration);
       setMonthlyPayment(payment.toFixed(2)); 
+
+      if (!payment) {
+        setMonthlyPayment(0);
+      }
     } else {
-      const payment = calculateFixedMonthlyPayment(loanAmount, interestRate, 5.0, loanDuration, 60);
+      const payment = calculateNonFixedMonthlyPayment(loanAmount, interestRate, 5.0, loanDuration, 60);
       setMonthlyPayment(payment.toFixed(2));
     }
+
+  };
+
+  // sort through loanDuration months
+  const loanDurationLabel = () => {
+    const labels = []
+    const displayInMonths = loanDuration * 12 > 12 ? 12: loanDuration * 12;
+    for (let i = 1; i <= displayInMonths; i++){
+      labels.push(`Month: ${i}`)
+    }
+    return labels;
+  }
+
+  const data = {
+    labels: loanDurationLabel(),
+    datasets: [
+      {
+        label: `Monthly Payments`,
+        data: Array(loanDuration * 12).fill(monthlyPayment),
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+        tension: 0.3,
+      },
+    ],
+  };
+  
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
   };
 
 
@@ -71,7 +110,7 @@ function App() {
     <>
     <header>
       <div id="header" className="container">
-          <h1 href="#header">Loan-Mortgage Calculator</h1>
+          <h1 href="#header">Loan Calculator</h1>
       </div>
     </header>
       <div className="container">
@@ -85,7 +124,7 @@ function App() {
           <input value={interestRate} type="number" placeholder="Enter Interest Rate" onChange={handleInputChange(setInterestRate)}></input>
         </div>
         <div className="loan-type">
-          <div>
+          <div className="fixedBox">
             <input name="loan-type" id="fixed" type="checkbox" value="fixed" checked={isFixedRate} onChange={() => setIsFixedRate(!isFixedRate)} />
             <label for="fixed">Fixed</label>
           </div>
@@ -100,6 +139,10 @@ function App() {
             <h3>Monthly Payment: ${monthlyPayment}</h3>
           </div>
         </div>
+      </div>
+
+      <div>
+        <Line data={data} options={options} />
       </div>
     </>
   );

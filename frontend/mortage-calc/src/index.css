@@ -1,13 +1,140 @@
+/* Global Styles */
 body {
+  font-family: 'Courier New', Courier, monospace;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background-color: #9e9efb;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensures the body takes at least the full viewport height */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h3 {
+  font-weight: 400;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 24px;
+}
+
+/* Header */
+#header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#header {
+  margin-bottom: 15px;
+  width: 100%; /* Make sure header spans full width */
+  text-align: center; /* Center text inside the header */
+}
+
+/* Form Styles */
+input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+button {
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Flexbox for input layout */
+.loan-amount, .loan-duration, .interest-rate {
+  width: 100%;
+}
+
+.loan-type {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.loan-type label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.loan-type div {
+  display: flex;
+  align-items: center;
+}
+
+.loan-type input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+p, h3 {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Chart Container */
+.chart-container {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 40px;
+}
+
+/* Subtle Line Chart Styling */
+canvas {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.fixedBox {
+  margin: 5px;
 }
